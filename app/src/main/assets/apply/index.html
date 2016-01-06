@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="padding-5">
+    		内容正在建设中..
+    		<!--<div class="am-margin-top">
+    			<ul class="am-nav am-nav-tabs am-nav-justify">
+					<li class="aaa am-active"><a>待审核</a></li>
+					<li class="bbb"><a>审核历史</a></li>
+				</ul>
+    		</div>
+			<div class="am-margin-top-lg aaa-list">
+				<ul class="am-list m-widget-list">
+				</ul>
+			</div>
+			<div id="pull-up" style="text-align:center; height: 45px;">
+				<span>点击加载更多</span>
+			</div>-->
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    $(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "申请管理"
+		});
+
+		$(".aaa").click(function() {
+			$(this).addClass("am-active");
+			$(".bbb").removeClass("am-active");
+
+			$(".aaa-list").show();
+		});
+
+		$(".bbb").click(function() {
+			$(this).addClass("am-active");
+			$(".aaa").removeClass("am-active");
+
+			$(".aaa-list").hide();
+		});
+
+		var page = 1;
+		var limit = 20;
+
+		var load = function() {
+			$.ajax({
+				type: "POST",
+				url: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					hrm_employee_id: $.cookie("user"),
+					page: page,
+					limit: limit
+				}),
+				dataType: "json",
+				success: function(json) {
+					if(json.result) {
+						if(json.data.length != limit) {
+							$("#pull-up").hide();
+						}
+
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							html += "<li><a href='../" + json.data[i].type + "/detail.html?id=" + json.data[i].id + "'>" + ((i + 1) + limit * (page - 1)) + "、" + json.data[i].title + "</a></li>"
+						}
+						$(".am-list").append(html);
+
+						page++;
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#pull-up").click(function() {
+			load();
+		});
+
+		//load();
+	});
+</script>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="am-padding">
+			<!--<p>
+    		<div id="title">合肥市疾病预防控制中心文件签发稿</div>
+			<p>-->
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">签发</h3></div>
+				<div class="am-panel-bd" id="qf_empid">
+					<span id="qf_empid_value" class='am-hide'></span>
+					<span id="qf_empid_text" class='am-margin-right am-hide'></span>
+					<button id="qf_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+					<textarea rows="3" id='qf_yj' class="am-hide" style="width: 100%;">同意</textarea>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">会签</h3></div>
+				<div class="am-panel-bd" id="hq_empid">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">办公室核稿</h3></div>
+				<div class="am-panel-bd" id="hg_empid">
+					<span id="hg_empid_value" class='am-hide'></span>
+					<span id="hg_empid_text" class='am-margin-right'></span>
+					<button id="hg_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">拟稿部门和拟稿人</h3></div>
+				<div class="am-panel-bd" id="ng_empid">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">标题</h3></div>
+				<div class="am-panel-bd" id="sy">
+					<input type='text' class='am-form-field am-hide' id='sy_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">附件</h3></div>
+				<div class="am-panel-bd" id="fjnr">
+					<input type='text' class='am-form-field am-hide' id='fjnr_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">主送</h3></div>
+				<div class="am-panel-bd" id="zs">
+					<input type='text' class='am-form-field am-hide' id='zs_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">抄送</h3></div>
+				<div class="am-panel-bd" id="cs">
+					<input type='text' class='am-form-field am-hide' id='cs_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">打印</h3></div>
+				<div class="am-panel-bd" id="dz_empid">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">校对</h3></div>
+				<div class="am-panel-bd" id="xd_empid">
+					<span id="xd_empid_value" class='am-hide'></span>
+					<span id="xd_empid_text" class='am-margin-right'></span>
+					<button id="xd_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">发文号</h3></div>
+				<div class="am-panel-bd" id="wh">
+					<input type='text' class='am-form-field am-hide' id='wh_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">密级</h3></div>
+				<div class="am-panel-bd" id="mj">
+					<input type='text' class='am-form-field am-hide' id='mj_value'></input>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">正文</h3></div>
+				<div class="am-panel-bd" id="zw">
+					<textarea rows="3" id='zw_value' class="am-hide" style="width: 100%;"></textarea>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">附件</h3></div>
+				<div class="am-panel-bd" id="attachment">
+
+				</div>
+			</div>
+			<p>
+
+			<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-margin-bottom-sm">
+	    		<button id="audit" class="am-btn am-btn-primary am-margin-top am-center" style="width:96%;">审核</button>
+	    		<button id="reject" class="am-btn am-btn-danger am-margin-top am-center" style="width:96%;">取消审核</button>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-bd" id="my-alert-message">
+
+			    	</div>
+			    	<div class="am-modal-footer">
+			    		<span class="am-modal-btn">确定</span>
+			    	</div>
+			  	</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "疾控中心文件签发稿表"
+		});
+
+		Jockey.on(EventBackCallback + "-" + urlString, function(payload) {
+			$("#" + payload.name + "_value").html(payload.value);
+			$("#" + payload.name + "_text").html(payload.text);
+		});
+
+		if($.getUrlParam("state") == 0) {
+			$("#audit").show();
+		} else {
+			$("#audit").hide();
+		}
+		$("#reject").hide();
+
+		var object;
+
+		$("#my-loading").modal();
+
+		$.ajax({
+			type: "POST",
+			url: "find",
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				wjqfg_id: $.getUrlParam("id")
+			}),
+			dataType: "json",
+			success: function(json) {
+				$("#my-loading").modal("close");
+
+				if(json.result) {
+					$("#hq_empid").html(json.data.hq_empname);
+					$("#ng_empid").html(json.data.ng_empname);
+
+					var isShow = true;
+
+					if (json.data.dz_zt == 0) {//打印审核
+						$("#dz_empid").html("");//打印人不显示
+						if($.getUrlParam("state") == 0) {
+							$("#wh_value").removeClass("am-hide");//发文号输入显示
+							$("#mj_value").removeClass("am-hide");//发文号输入显示
+							$("#xd_empid_help").removeClass("am-hide");//校对人选择
+						}
+					} else {
+						$("#dz_empid").html(json.data.dz_empname);//打印人显示
+						$("#wh").html(json.data.wh);//发文号显示
+						$("#mj").html(json.data.mj);
+
+						if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.dz_empid == $.cookie(CookieUser)) {
+							$("#reject").show();
+						}
+
+						if (json.data.xd_zt == 0) {//校对审核
+							$("#xd_empid").html("");//校对人不显示
+							if($.getUrlParam("state") == 0) {
+								$("#hg_empid_help").removeClass("am-hide");//办公室核稿人选择
+							}
+
+							if(json.data.hg_empid == "") {
+								$("#hg_empid_value").html("012");
+								$("#hg_empid_text").html("张伟");
+							}
+						} else {
+							$("#xd_empid").html(json.data.xd_empname);//校对人显示
+
+							if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.xd_empid == $.cookie(CookieUser)) {
+								$("#reject").show();
+							}
+
+							if(json.data.qf_empid == "") {
+								$("#qf_empid_value").html("002");
+								$("#qf_empid_text").html("马尔健");
+							}
+
+							$("#sy_value").removeClass("am-hide");
+							$("#sy_value").val(json.data.sy);
+
+							$("#fjnr_value").removeClass("am-hide");
+							$("#fjnr_value").val(json.data.fjnr);
+
+							$("#zs_value").removeClass("am-hide");
+							$("#zs_value").val(json.data.zs);
+
+							$("#cs_value").removeClass("am-hide");
+							$("#cs_value").val(json.data.cs);
+
+							$("#zw_value").removeClass("am-hide");
+							$("#zw_value").val(json.data.zw.replace("<p>", "").replace("</p>", ""));
+
+							isShow = false;
+
+							if (json.data.hg_zt == 0) {//核稿审核
+								$("#hg_empid").html("");//签发人不显示
+								if($.getUrlParam("state") == 0) {
+									$("#qf_empid_text").removeClass("am-hide");//办公室核稿人显示
+									$("#qf_empid_help").removeClass("am-hide");//办公室核稿人选择
+								}
+							} else {
+								$("#hg_empid").html(json.data.hg_empname);//签发人显示
+
+								if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.hg_empid == $.cookie(CookieUser)) {
+									$("#reject").show();
+								}
+
+								if (json.data.qf_zt == 0) {//签发审核
+									if($.getUrlParam("state") == 0) {
+										$("#qf_yj").removeClass("am-hide");//签发意见显示
+									}
+								} else {
+									$("#qf_empid").html(json.data.qf_empname);//签发人显示
+
+									/*$("#sy").html(json.data.sy);
+
+									$("#fjnr").html(json.data.fjnr);
+
+									$("#zs").html(json.data.zs);
+
+									$("#cs").html(json.data.cs);
+
+									$("#zw").html(json.data.zw);*/
+
+									if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.qf_empid == $.cookie(CookieUser)) {
+										$("#reject").show();
+									}
+								}
+							}
+						}
+					}
+
+					if(isShow) {
+						$("#sy").html(json.data.sy);
+
+						$("#fjnr").html(json.data.fjnr);
+
+						$("#zs").html(json.data.zs);
+
+						$("#cs").html(json.data.cs);
+
+						$("#zw").html(json.data.zw);
+					}
+
+					if(json.data.fjjs != "") {
+						var array = json.data.fjjs.split(",");
+						getAttachment(array);
+					}
+
+					object = json.data;
+				}
+			},
+			error: function() {
+
+			}
+		});
+
+		$("#xd_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=xd_empid";
+		});
+
+		$("#hg_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=hg_empid";
+		});
+
+		$("#qf_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=qf_empid";
+		});
+
+		$("#audit").click(function() {
+			if(typeof(object) == "undefined") {
+				$("#my-alert-message").html("还没有加载完成, 请耐心等待!");
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			//打印审核
+			if(object.dz_zt == 0) {
+				var message = "";
+
+				object.xd_empid = $("#xd_empid_value").html();
+				if(object.xd_empid == "") {
+					message += "请选择校对人!<br/>";
+				}
+
+				object.wh = $("#wh_value").val();
+				if(object.wh == "") {
+					message += "请填写发文号!<br/>";
+				}
+
+				object.mj = $("#mj_value").val();
+				if(object.mj == "") {
+					message += "请填写密级!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep1();
+
+				return;
+			}
+
+			if (object.xd_zt == 0) {
+				var message = "";
+
+				object.hg_empid = $("#hg_empid_value").html();
+				if(object.hg_empid == "") {
+					message += "请选择办公室核稿人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep2();
+
+				return;
+			}
+
+			if (object.hg_zt == 0) {
+				var message = "";
+
+				object.qf_empid = $("#qf_empid_value").html();
+				if(object.qf_empid == "") {
+					message += "请选择签发人!<br/>";
+				}
+
+				object.sy = $("#sy_value").val();
+				if(object.sy == "") {
+					message += "请填写标题!<br/>";
+				}
+
+				object.fjnr = $("#fjnr_value").val();
+				if(object.fjnr == "") {
+					message += "请填写附件!<br/>";
+				}
+
+				object.zs = $("#zs_value").val();
+				if(object.zs == "") {
+					message += "请填写主送!<br/>";
+				}
+
+				object.cs = $("#cs_value").val();
+				if(object.cs == "") {
+					message += "请填写抄送!<br/>";
+				}
+
+				object.zw = $("#zw_value").val();
+				if(object.zw == "") {
+					message += "请填写正文!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep3();
+
+				return;
+			}
+
+			if (object.qf_zt == 0) {
+				var message = "";
+
+				object.qf_yj = $("#qf_yj").val();
+				if(object.qf_yj == "") {
+					message += "请填写签发意见!<br/>";
+				}
+
+				object.sy = $("#sy_value").val();
+				if(object.sy == "") {
+					message += "请填写标题!<br/>";
+				}
+
+				object.fjnr = $("#fjnr_value").val();
+				if(object.fjnr == "") {
+					message += "请填写附件!<br/>";
+				}
+
+				object.zs = $("#zs_value").val();
+				if(object.zs == "") {
+					message += "请填写主送!<br/>";
+				}
+
+				object.cs = $("#cs_value").val();
+				if(object.cs == "") {
+					message += "请填写抄送!<br/>";
+				}
+
+				object.zw = $("#zw_value").val();
+				if(object.zw == "") {
+					message += "请填写正文!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep4();
+
+				return;
+			}
+
+		});
+
+		function updateStep1() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step1",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wjqfg_id: object.wjqfg_id,
+					xd_empid: object.xd_empid,
+					wh: object.wh,
+					mj: object.mj
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep2() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step2",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wjqfg_id: object.wjqfg_id,
+					hg_empid: object.hg_empid
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep3() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step3",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wjqfg_id: object.wjqfg_id,
+					qf_empid: object.qf_empid,
+					sy: object.sy,
+					fjnr: object.fjnr,
+					zs: object.zs,
+					cs: object.cs,
+					zw: object.zw
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep4() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step4",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wjqfg_id: object.wjqfg_id,
+					qf_yj: object.qf_yj,
+					sy: object.sy,
+					fjnr: object.fjnr,
+					zs: object.zs,
+					cs: object.cs,
+					zw: object.zw
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#reject").click(function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "undostep" + $.getUrlParam("step"),
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wjqfg_id: object.wjqfg_id
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		});
+
+		function getAttachment(ids) {
+			var url = document.location.href;
+			url = url.substring(0, url.indexOf("/wjqfg/detail"));
+
+			$.ajax({
+				type: "POST",
+				url: "../attachment/json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					ids: ids
+				}),
+				dataType: "json",
+				success: function(json) {
+					if(json.result) {
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							var object = json.data[i];
+							//html += "<a href='../attachment/download?path=" + object.attachment_filename + "'>" + object.attachment_name + "</a><br />";
+							//html += "<a href='http://api.idocv.com/view/url?url=" + url + "/attachment/download?path=" + object.attachment_filename + "&name=" + object.attachment_name + "'>" + object.attachment_name + "</a><br />";
+							html += "<a href='../download.html?path=" + object.attachment_filename + "&name=" + encodeURIComponent(encodeURIComponent(object.attachment_name)) + "'>" + object.attachment_name + "</a><br />";
+						}
+						$("#attachment").html(html);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+	});
+</script>

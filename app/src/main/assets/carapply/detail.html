@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="am-padding">
+			<!--<p>
+    		<div id="title">车辆使用申请单</div>
+			<p>-->
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">申请科室</h3></div>
+				<div class="am-panel-bd" id="apply_section">
+					<span id="apply_section_value" class='am-hide'></span>
+					<span id="apply_section_text" class='am-margin-right am-hide'></span>
+					<button id="apply_section_help" class="am-btn am-btn-primary am-hide">部门拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">申请时间</h3></div>
+				<div class="am-panel-bd" id="sqsj">
+					<input type="text" id='sqsj_value' class="am-hide" data-am-datepicker readonly style="width: 100%;" />
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">用车时间</h3></div>
+				<div class="am-panel-bd" id="ycsj">
+					<div id="ycsj_div" class="am-hide">
+						开始时间:
+						<input type="text" id='ycsj_begindate_value' class="am-hide2" data-am-datepicker readonly /><span class="am-margin-left"></span>
+						<input type="radio" name="apply_begindate_radio" value="00:00:00" checked> 上午<span class="am-margin-left"></span>
+						<input type="radio" name="apply_begindate_radio" value="12:00:00"> 下午
+						<p>
+						结束时间:
+						<input type="text" id='ycsj_enddate_value' class="am-hide2" data-am-datepicker readonly /><span class="am-margin-left"></span>
+						<input type="radio" name="apply_enddate_radio" value="12:00:00" checked> 上午<span class="am-margin-left"></span>
+						<input type="radio" name="apply_enddate_radio" value="23:59:59"> 下午
+					</div>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">使用车辆</h3></div>
+				<div class="am-panel-bd" id="car_id">
+					<span id="car_id_value" class='am-hide'></span>
+					<span id="car_id_text" class='am-margin-right am-hide'></span>
+					<button id="car_id_help" class="am-btn am-btn-primary am-hide">车辆拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">用车人</h3></div>
+				<div class="am-panel-bd" id="apply_user">
+					<span id="apply_user_value" class='am-hide'></span>
+					<span id="apply_user_text" class='am-margin-right am-hide'></span>
+					<button id="apply_user_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">用车范围</h3></div>
+				<div class="am-panel-bd" id="ycqy">
+					<div class="am-form-group">
+				      <select id="ycqy_select" class="am-hide">
+				        <option value="0">市内</option>
+				        <option value="1">郊县</option>
+				        <option value="2">长途</option>
+				      </select>
+				      <span class="am-form-caret"></span>
+				    </div>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">用车人数</h3></div>
+				<div class="am-panel-bd" id="ycrs">
+					<input type="text" id='ycrs_value' class="am-hide" style="width: 100%;" />
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">到达目的地</h3></div>
+				<div class="am-panel-bd" id="mdd">
+					<input type="text" id='mdd_value' class="am-hide" style="width: 100%;" />
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">出车任务</h3></div>
+				<div class="am-panel-bd" id="apply_task">
+					<textarea rows="3" id='apply_task_value' class="am-hide" style="width: 100%;"></textarea>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">科室主任意见</h3></div>
+				<div class="am-panel-bd" id="ksfgryj">
+					<div id="ksfgryj_radio_div" class='am-hide'>
+						<input type="radio" name="ksfgryj_radio" value="0" checked> 同意<span class="am-margin-left"></span>
+						<input type="radio" name="ksfgryj_radio" value="1"> 不同意
+					</div>
+					<span id="ksfgr_empid_value" class='am-hide'></span>
+					<span id="ksfgr_empid_text" class='am-margin-right am-hide'></span>
+					<button id="ksfgr_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default" id="zxzryj_div">
+				<div class="am-panel-hd"><h3 class="am-panel-title">中心主任意见</h3></div>
+				<div class="am-panel-bd" id="zxzryj">
+					<div id="zxzryj_radio_div" class='am-hide'>
+						<input type="radio" name="zxzryj_radio" value="0" checked> 同意<span class="am-margin-left"></span>
+						<input type="radio" name="zxzryj_radio" value="1"> 不同意
+					</div>
+					<span id="zxzr_empid_value" class='am-hide'></span>
+					<span id="zxzr_empid_text" class='am-margin-right am-hide'></span>
+					<button id="zxzr_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+
+			<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-margin-bottom-sm">
+				<div class="am-cf">
+	    			<button id="save" class="am-btn am-btn-primary am-margin-top am-margin-left am-fl" style="max-width:45%; width:100%;">保存</button>
+	    			<button id="delete" class="am-btn am-btn-danger am-margin-top am-margin-right am-fr" style="max-width:45%; width:100%;">删除</button>
+				</div>
+	    		<button id="audit" class="am-btn am-btn-primary am-margin-top am-center" style="width:96%;">审核</button>
+	    		<button id="reject" class="am-btn am-btn-danger am-margin-top am-center" style="width:96%;">取消审核</button>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-bd" id="my-alert-message">
+
+			    	</div>
+			    	<div class="am-modal-footer">
+			    		<span class="am-modal-btn">确定</span>
+			    	</div>
+			  	</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "车辆使用申请单"
+		});
+
+		var keshiList = [];
+
+		function checkKeShiList() {
+			var html = "";
+
+			for(var i = 0; i < keshiList.length; i++) {
+				html += "<li class='am-cf am-vertical-align' style='height: 50px;'><span class='am-vertical-align-middle'>" + keshiList[i].text + "</span><button value='" + i + "' class='am-btn am-btn-danger am-fr am-margin-top-xs keshi-button'>删除</button></li>"
+			}
+
+			$("#keshi_list ul").html(html);
+
+			$(".keshi-button").click(function() {
+				keshiList.splice($(this).attr("value"), 1);
+
+				checkKeShiList();
+			});
+		}
+
+		Jockey.on(EventBackCallback + "-" + urlString, function(payload) {
+			if(payload.name == "keshi") {
+				keshiList.push({
+					value: payload.value,
+					text: payload.text
+				});
+
+				checkKeShiList();
+			} else {
+				$("#" + payload.name + "_value").html(payload.value);
+				$("#" + payload.name + "_text").html(payload.text);
+			}
+
+			if(payload.name == "car_id") {
+				$("#ycsj_begindate_value").val(payload.begin.substring(0, 10));
+				$("#ycsj_enddate_value").val(payload.end.substring(0, 10));
+				$("input[name='apply_begindate_radio'][value='" + payload.begin.substring(11, 19) + "']").attr("checked",true);
+				$("input[name='apply_enddate_radio'][value='" + payload.end.substring(11, 19) + "']").attr("checked",true);
+			}
+		});
+
+		if($.getUrlParam("state") == 0) {
+			$("#audit").show();
+		} else {
+			$("#audit").hide();
+		}
+		$("#reject").hide();
+
+		var object = new Object();
+
+		var action = $.getUrlParam("action");
+
+		if(action == null) {
+
+		} else {
+			$("#audit").hide();
+
+			$("#apply_section_text").removeClass("am-hide");
+			$("#apply_section_help").removeClass("am-hide");
+			$("#sqsj_value").removeClass("am-hide");
+			$("#car_id_text").removeClass("am-hide");
+			$("#car_id_help").removeClass("am-hide");
+			$("#ycsj_div").removeClass("am-hide");
+			$("#apply_user_text").removeClass("am-hide");
+			$("#apply_user_help").removeClass("am-hide");
+			$("#ycqy_select").removeClass("am-hide");
+			$("#ycrs_value").removeClass("am-hide");
+			$("#mdd_value").removeClass("am-hide");
+			$("#apply_task_value").removeClass("am-hide");
+			$("#ksfgr_empid_text").removeClass("am-hide");
+			$("#ksfgr_empid_help").removeClass("am-hide");
+			$("#zxzr_empid_text").removeClass("am-hide");
+			$("#zxzr_empid_help").removeClass("am-hide");
+		}
+
+		$("#save").hide();
+		$("#delete").hide();
+
+		if(action == "add") {
+			$("#save").show();
+			$("#delete").hide();
+			$("#save").css("max-width", "100%");
+
+			$("#sqsj_value").val(new Date().Format("yyyy-MM-dd"));
+			$("#ycsj_begindate_value").val(new Date().Format("yyyy-MM-dd"));
+			$("#ycsj_enddate_value").val(new Date().Format("yyyy-MM-dd"));
+		}
+
+		if(action == "edit" || action == null) {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "find",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: $.getUrlParam("id")
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						if(action != null) {
+							$("#apply_section_value").html(json.data.apply_section);
+							$("#apply_section_text").html(json.data.hrm_dep_name);
+							$("#sqsj_value").val(json.data.sqsj);
+							$("#car_id_value").html(json.data.car_id);
+							$("#car_id_text").html(json.data.car_name);
+							var apply_begindate = json.data.apply_begindate;
+							var apply_enddate = json.data.apply_enddate;
+							$("#ycsj_begindate_value").val(apply_begindate.substring(0, 10));
+							$("#ycsj_enddate_value").val(apply_enddate.substring(0, 10));
+							$("input[name='apply_begindate_radio'][value='" + apply_begindate.substring(11, 19) + "']").attr("checked",true);
+							$("input[name='apply_enddate_radio'][value='" + apply_enddate.substring(11, 19) + "']").attr("checked",true);
+							$("#apply_user_value").html(json.data.apply_user);
+							$("#apply_user_text").html(json.data.hrm_employee_name);
+							$("#ycqy_select").val(json.data.ycqy);
+							$("#ycrs_value").val(json.data.ycrs);
+							$("#mdd_value").val(json.data.mdd);
+							$("#apply_task_value").val(json.data.apply_task);
+							$("#ksfgr_empid_value").html(json.data.ksfgr_empid);
+							$("#ksfgr_empid_text").html(json.data.ksfgr_empname);
+							if(json.data.zxzr_empid != "") {
+								$("#zxzr_empid_value").html(json.data.zxzr_empid);
+								$("#zxzr_empid_text").html(json.data.zxzr_empname);
+							}
+
+							if(json.data.ksfgr_zt == 0) {
+								$("#save").show();
+								$("#delete").show();
+							}
+						} else {
+							$("#apply_section").html(json.data.hrm_dep_name);
+							$("#sqsj").html(json.data.sqsj);
+							$("#car_id").html(json.data.car_name);
+							$("#ycsj").html(json.data.apply_begindate + "<br />" + json.data.apply_enddate);
+							$("#apply_user").html(json.data.hrm_employee_name);
+							if(json.data.ycqy == 0) {
+								$("#ycqy").html("市内");
+							} else if(json.data.ycqy == 1) {
+								$("#ycqy").html("郊县");
+							} else if(json.data.ycqy == 3) {
+								$("#ycqy").html("长途");
+							}
+							$("#ycrs").html(json.data.ycrs);
+							$("#mdd").html(json.data.mdd);
+							$("#apply_task").html(json.data.apply_task);
+							checkZxzryj(json.data.ycqy);
+							if (json.data.ksfgr_zt == 0) {
+								if($.getUrlParam("state") == 0) {
+									$("#ksfgryj_radio_div").removeClass("am-hide");
+								}
+							} else {
+								$("#ksfgryj").html(json.data.ksfgr_empname + "<br />" + (json.data.ksfgryj == 0 ? "同意" : "不同意"));
+
+								if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.ksfgr_empid == $.cookie(CookieUser)) {
+									$("#reject").show();
+								}
+
+								if (json.data.zxzr_zt == 0) {
+									if($.getUrlParam("state") == 0) {
+										$("#zxzryj_radio_div").removeClass("am-hide");
+									}
+								} else {
+									checkZxzryj(json.data.ycqy);
+
+									$("#zxzryj").html(json.data.zxzr_empname + "<br />" + (json.data.zxzryj == 0 ? "同意" : "不同意"));
+
+									if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.zxzr_empid == $.cookie(CookieUser)) {
+										$("#reject").show();
+									}
+								}
+							}
+						}
+
+						object = json.data;
+					}
+				},
+				error: function() {
+
+				}
+			});
+		} else {
+
+		}
+
+		$("#apply_section_help").click(function() {
+			window.location.href = "../department/index.html?name=apply_section";
+		});
+
+		$("#car_id_help").click(function() {
+			var message = "";
+
+			var apply_begindate = $("#ycsj_begindate_value").val();
+			if(apply_begindate == "") {
+				message += "请填写申请用车开始时间!<br/>";
+			}
+
+			var apply_enddate = $("#ycsj_enddate_value").val();
+			if(apply_enddate == "") {
+				message += "请填写申请用车结束时间!<br/>";
+			}
+
+			var begintime = $("input[name='apply_begindate_radio']:checked").val();
+			var endtime = $("input[name='apply_enddate_radio']:checked").val();
+			var begin = new Date((apply_begindate + " " + begintime).replace("-", "/").replace("-", "/"));
+			var end = new Date((apply_enddate + " " + endtime).replace("-", "/").replace("-", "/"));
+			if(begin >= end) {
+				message += "开始时间应该小于结束时间!<br/>";
+			}
+
+			if(message != "") {
+				$("#my-alert-message").html(message);
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			window.location.href = "../car/index.html?name=car_id&begin=" + apply_begindate + " " + begintime + "&end=" + apply_enddate + " " + endtime;
+		});
+
+		$("#apply_user_help").click(function() {
+			window.location.href = "../employee/index.html?name=apply_user";
+		});
+
+		$("#ksfgr_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=ksfgr_empid";
+		});
+
+		$("#zxzr_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=zxzr_empid";
+		});
+
+		object.ycqy = $("#ycqy_select").val();
+		checkZxzryj(object.ycqy);
+
+		$("#ycqy_select").change(function() {
+			object.ycqy = $(this).children('option:selected').val();
+
+			checkZxzryj(object.ycqy);
+		});
+
+		function checkZxzryj(ycqy) {
+			if(ycqy == 2) {
+				$("#zxzryj_div").show();
+			} else {
+				$("#zxzryj_div").hide();
+			}
+		}
+
+		$("#delete").click(function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "delete",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: object.apply_id
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("删除成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					} else {
+						$("#my-alert-message").html(json.message);
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+					}
+				},
+				error: function() {
+				}
+			});
+		});
+
+		$("#save").click(function() {
+			var message = "";
+
+			object.apply_section = $("#apply_section_value").html();
+			if(object.apply_section == "") {
+				message += "请选择申请科室审批人!<br/>";
+			}
+
+			object.sqsj = $("#sqsj_value").val();
+			if(object.sqsj == "") {
+				message += "请填写申请时间!<br/>";
+			}
+
+			object.car_id = $("#car_id_value").html();
+			if(object.car_id == "") {
+				message += "请选择使用车辆!<br/>";
+			}
+
+			object.apply_begindate = $("#ycsj_begindate_value").val();
+			if(object.apply_begindate == "") {
+				message += "请填写申请用车开始时间!<br/>";
+			}
+
+			object.apply_enddate = $("#ycsj_enddate_value").val();
+			if(object.apply_enddate == "") {
+				message += "请填写申请用车结束时间!<br/>";
+			}
+
+			var begintime = $("input[name='apply_begindate_radio']:checked").val();
+			var endtime = $("input[name='apply_enddate_radio']:checked").val();
+			var begin = new Date((object.apply_begindate + " " + begintime).replace("-", "/").replace("-", "/"));
+			var end = new Date((object.apply_enddate + " " + endtime).replace("-", "/").replace("-", "/"));
+			if(begin >= end) {
+				message += "开始时间应该小于结束时间!<br/>";
+			} else {
+				object.apply_begindate = object.apply_begindate + " " + begintime;
+				object.apply_enddate = object.apply_enddate + " " + endtime;
+			}
+
+			object.apply_user = $("#apply_user_value").html();
+			if(object.apply_user == "") {
+				message += "请选择用车人!<br/>";
+			}
+
+			object.ycrs = $("#ycrs_value").val();
+			if(object.ycrs == "") {
+				message += "请填写用车人数!<br/>";
+			} else {
+				if(!jQuery.isNumeric(object.ycrs)) {
+					message += "请填写用车人数为数字!<br/>";
+				}
+			}
+
+			object.mdd = $("#mdd_value").val();
+			if(object.mdd == "") {
+				message += "请填写到达目的地!<br/>";
+			}
+
+			object.apply_task = $("#apply_task_value").val();
+			if(object.apply_task == "") {
+				message += "请填写出车任务!<br/>";
+			}
+
+			object.ksfgr_empid = $("#ksfgr_empid_value").html();
+			if(object.ksfgr_empid == "") {
+				message += "请选择申请科室审批人!<br/>";
+			}
+
+			object.zxzr_empid = $("#zxzr_empid_value").html();
+			if(object.ycqy == 2) {
+				if(object.zxzr_empid == "") {
+					message += "请选择中心主任审批人!<br/>";
+				}
+			}
+
+			if(message != "") {
+				$("#my-alert-message").html(message);
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			saveOrUpdate();
+		});
+
+		function saveOrUpdate() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: action == "add" ? "save" : "update",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: object.apply_id,
+					apply_section: object.apply_section,
+					sqsj: object.sqsj,
+					car_id: object.car_id,
+					apply_begindate: object.apply_begindate,
+					apply_enddate: object.apply_enddate,
+					apply_user: object.apply_user,
+					ycqy: object.ycqy,
+					ycrs: object.ycrs,
+					mdd: object.mdd,
+					apply_task: object.apply_task,
+					ksfgr_empid: object.ksfgr_empid,
+					zxzr_empid: object.zxzr_empid,
+					RECORD_ID: $.cookie(CookieUser),
+					LASTMODI_ID: $.cookie(CookieUser)
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("保存成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					} else {
+						$("#my-alert-message").html(json.message);
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+					}
+				},
+				error: function() {
+				}
+			});
+		}
+
+		$("#audit").click(function() {
+			if(typeof(object) == "undefined") {
+				$("#my-alert-message").html("还没有加载完成, 请耐心等待!");
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			if(object.ksfgr_zt == 0) {
+				object.ksfgryj = $("input[name='ksfgryj_radio']:checked").val();
+
+				updateStep1();
+
+				return;
+			}
+
+			if(object.zxzr_zt == 0) {
+				object.zxzryj = $("input[name='zxzryj_radio']:checked").val();
+
+				updateStep2();
+
+				return;
+			}
+
+		});
+
+		function updateStep1() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step1",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: object.apply_id,
+					ksfgryj: object.ksfgryj
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep2() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step2",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: object.apply_id,
+					zxzryj: object.zxzryj
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#reject").click(function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "undostep" + $.getUrlParam("step"),
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_id: object.apply_id
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		});
+
+	});
+</script>

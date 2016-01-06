@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/amazeui.min.js"></script>
+		<script type="text/javascript" src="js/jockey.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="padding-left-5 padding-right-5 padding-top-5">
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    $(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "文件下载"
+		});
+
+		$("#my-loading").modal();
+
+		Jockey.send(EventDownload + "-" + urlString, {
+			path: $.getUrlParam("path"),
+			name: $.getUrlParam("name")
+		});
+
+	});
+</script>

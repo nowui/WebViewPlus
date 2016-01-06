@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<header data-am-widget="header" class="am-header am-header-fixed" style="background-color: #ffffff; height: 70px;">
+    		<div class="am-margin-top" style="background-color: #ffffff;">
+    			<ul class="am-nav am-nav-tabs am-nav-justify">
+					<li id="pending"><a>待审核</a></li>
+					<li id="finished"><a>审核历史</a></li>
+				</ul>
+    		</div>
+		</header>
+    	<div id="container">
+			<div id="pending-list">
+				<div class="am-margin-top-lg">
+					<ul class="am-list m-widget-list">
+					</ul>
+					<div id="pending-pull-up" style="text-align:center; height: 45px;">
+						<span>点击加载更多</span>
+					</div>
+				</div>
+			</div>
+			<div id="finished-list">
+				<div class="am-margin-top-lg">
+					<ul class="am-list m-widget-list">
+					</ul>
+				</div>
+				<div id="finished-pull-up" style="text-align:center; height: 45px;">
+					<span>点击加载更多</span>
+				</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    $(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "审核管理"
+		});
+
+		Jockey.on(EventBackCallback + "-" + urlString, function(payload) {
+			isNotFinishedLoad = true;
+
+			showPending();
+
+			pendingPage = 1;
+			$("#pending-list ul").html("");
+			loadPending();
+
+			finishedPage = 1;
+			$("#finished-list ul").html("");
+		});
+
+		$("#pending-pull-up").hide();
+		$("#finished-pull-up").hide();
+
+		$("#pending").click(function() {
+			showPending();
+		});
+
+		$("#finished").click(function() {
+			showFinished();
+		});
+
+		$("#pending-list").hide();
+		$("#finished-list").hide();
+
+		var isNotFinishedLoad = true;
+
+		function showPending() {
+			$("#pending").addClass("am-active");
+			$("#finished").removeClass("am-active");
+
+			$("#pending-list").show();
+			$("#finished-list").hide();
+		}
+
+		function showFinished() {
+			$("#pending").removeClass("am-active");
+			$("#finished").addClass("am-active");
+
+			$("#pending-list").hide();
+			$("#finished-list").show();
+
+			if(isNotFinishedLoad) {
+				isNotFinishedLoad = false;
+				$("#finished-list ul").html("");
+
+				loadFinished();
+			}
+		}
+
+		showPending();
+
+		var pendingPage = 1;
+		var finishedPage = 1;
+		var limit = 20;
+
+		var loadPending = function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					hrm_employee_id: $.cookie(CookieUser),
+					state: 0,
+					page: pendingPage,
+					limit: limit
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						if(pendingPage == 1) {
+							$("#pending-up").show();
+						}
+
+						if(json.data.length != limit) {
+							$("#pending-pull-up").hide();
+						}
+
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							html += "<li><a href='../" + json.data[i].type + "/detail.html?id=" + json.data[i].id + "&state=0&step=" + json.data[i].step + "'><div style='width: 50px; float: left;'>" + ((i + 1) + limit * (pendingPage - 1)) + ".</div><div style='float: left;'>" + json.data[i].title + "<br/>" + json.data[i].datetime + "</div></a></li>"
+						}
+						$("#pending-list ul").append(html);
+
+						pendingPage++;
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		var loadFinished = function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					hrm_employee_id: $.cookie(CookieUser),
+					state: 1,
+					page: finishedPage,
+					limit: limit
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						if(finishedPage == 1) {
+							$("#finished-pull-up").show();
+						}
+
+						if(json.data.length != limit) {
+							$("#finished-pull-up").hide();
+						}
+
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							html += "<li><a href='../" + json.data[i].type + "/detail.html?id=" + json.data[i].id + "&state=1&step=" + json.data[i].step + "'><div style='width: 50px; float: left;'>" + ((i + 1) + limit * (finishedPage - 1)) + ".</div><div style='float: left;'>" + json.data[i].title + "<br/>" + json.data[i].datetime + "</div></a></a></li>"
+						}
+						$("#finished-list ul").append(html);
+
+						finishedPage++;
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#pending-pull-up").click(function() {
+			loadPending();
+		});
+
+		$("#finished-pull-up").click(function() {
+			loadFinished();
+		});
+
+		loadPending();
+	});
+</script>

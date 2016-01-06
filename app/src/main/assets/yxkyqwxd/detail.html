@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="am-padding">
+			<!--<p>
+    		<div id="title">仪器、设备维修及评价单</div>
+			<p>-->
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">申购科室</h3></div>
+				<div class="am-panel-bd" id="sqks">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">申请人</h3></div>
+				<div class="am-panel-bd" id="sqr">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">名称</h3></div>
+				<div class="am-panel-bd" id="yqmc">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">规格型号</h3></div>
+				<div class="am-panel-bd" id="xhgg">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">自编号</h3></div>
+				<div class="am-panel-bd" id="yqbh">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">是否需要计量校准</h3></div>
+				<div class="am-panel-bd" id="jljz">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">故障想象及发送过程描述</h3></div>
+				<div class="am-panel-bd" id="gzms">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">故障原因检定</h3></div>
+				<div class="am-panel-bd" id="gzyy">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">使用科室负责人</h3></div>
+				<div class="am-panel-bd" id="syksfzryj">
+					<textarea rows="3" id='syksfzryj_value' class="am-hide" style="width: 100%;">同意维修</textarea>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">药械科负责人</h3></div>
+				<div class="am-panel-bd" id="yxkfzr_yj">
+					<textarea rows="3" id='yxkfzr_yj_value' class="am-hide" style="width: 100%;">同意维修</textarea>
+					<span id="yxkfzr_yj_empid_value" class='am-hide'></span>
+					<span id="yxkfzr_yj_empid_text" class='am-margin-right am-hide'></span>
+					<button id="yxkfzr_yj_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">中心领导审批</h3></div>
+				<div class="am-panel-bd" id="zxldyj">
+					<textarea rows="3" id='zxldyj_value' class="am-hide" style="width: 100%;">同意维修</textarea>
+					<span id="zxldyj_empid_value" class='am-hide'></span>
+					<span id="zxldyj_empid_text" class='am-margin-right am-hide'></span>
+					<button id="zxldyj_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">送修日期</h3></div>
+				<div class="am-panel-bd" id="sxrq">
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">维修工程师</h3></div>
+				<div class="am-panel-bd" id="wxgcs">
+					<input type="text" id='wxgcs_value' class="am-hide" style="width: 100%;" >
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">修理单位</h3></div>
+				<div class="am-panel-bd" id="xldw">
+					<input type="text" id='xldw_value' class="am-hide" style="width: 100%;" >
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">维修内容</h3></div>
+				<div class="am-panel-bd" id="wxnr">
+					<input type="text" id='wxnr_value' class="am-hide" style="width: 100%;" >
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">完成日期</h3></div>
+				<div class="am-panel-bd" id="wcrq">
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">药械科经办人</h3></div>
+				<div class="am-panel-bd" id="yxkjbr">
+					<span id="yxkjbr_empid_value" class='am-hide'></span>
+					<span id="yxkjbr_empid_text" class='am-margin-right am-hide'></span>
+					<button id="yxkjbr_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">验收评价意见</h3></div>
+				<div class="am-panel-bd" id="ztpj">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">使用科室验收评价人</h3></div>
+				<div class="am-panel-bd" id="yspjyj">
+					<textarea rows="3" id='yspjyj_value' class="am-hide" style="width: 100%;">同意维修</textarea>
+					<span id="yspjyj_empid_value" class='am-hide'></span>
+					<span id="yspjyj_empid_text" class='am-margin-right am-hide'></span>
+					<button id="yspjyj_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">备注</h3></div>
+				<div class="am-panel-bd" id="bz">
+
+				</div>
+			</div>
+			<p>
+
+			<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-margin-bottom-sm">
+	    		<button id="audit" class="am-btn am-btn-primary am-margin-top am-center" style="width:96%;">审核</button>
+	    		<button id="reject" class="am-btn am-btn-danger am-margin-top am-center" style="width:96%;">取消审核</button>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-bd" id="my-alert-message">
+
+			    	</div>
+			    	<div class="am-modal-footer">
+			    		<span class="am-modal-btn">确定</span>
+			    	</div>
+			  	</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "仪器、设备维修及评价单"
+		});
+
+		Jockey.on(EventBackCallback + "-" + urlString, function(payload) {
+			$("#" + payload.name + "_value").html(payload.value);
+			$("#" + payload.name + "_text").html(payload.text);
+		});
+
+		if($.getUrlParam("state") == 0) {
+			$("#audit").show();
+		} else {
+			$("#audit").hide();
+		}
+		$("#reject").hide();
+
+		var object;
+
+		$("#my-loading").modal();
+
+		$.ajax({
+			type: "POST",
+			url: "find",
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				yqsbwxd_id: $.getUrlParam("id")
+			}),
+			dataType: "json",
+			success: function(json) {
+				$("#my-loading").modal("close");
+
+				if(json.result) {
+					$("#sqks").html(json.data.hrm_dep_name);
+					$("#sqr").html(json.data.sqr);
+					$("#yqmc").html(json.data.yqmc);
+					$("#xhgg").html(json.data.xhgg);
+					$("#yqbh").html(json.data.yqbh);
+					if(json.data.jljz == 0) {
+						$("#jljz").html("否");
+					} else {
+						$("#jljz").html("是");
+					}
+					$("#gzms").html(json.data.gzms);
+					if(json.data.gzyy == 0) {
+						$("#gzyy").html("人为");
+					} else if(json.data.gzyy == 1) {
+						$("#gzyy").html("非人为");
+					}
+					$("#gzyy").append("<br/>检定人(一):" + json.data.yyjdrone);
+					$("#gzyy").append("<br/>检定人(二):" + json.data.yyjdrtwo);
+					if (json.data.syksfzr_zt == 0) {
+						if($.getUrlParam("state") == 0) {
+							$("#syksfzryj_value").removeClass("am-hide");
+
+							$("#yxkfzr_yj_empid_text").removeClass("am-hide");
+							$("#yxkfzr_yj_empid_help").removeClass("am-hide");
+						}
+					} else {
+						$("#syksfzryj").html(json.data.syksfzryj);
+
+						if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.syksfzr_empid == $.cookie(CookieUser)) {
+							$("#reject").show();
+						}
+
+						if (json.data.yxkfzr_zt == 0) {
+							if($.getUrlParam("state") == 0) {
+								$("#yxkfzr_yj_value").removeClass("am-hide");
+
+								$("#zxldyj_empid_text").removeClass("am-hide");
+								$("#zxldyj_empid_help").removeClass("am-hide");
+							}
+						} else {
+							$("#yxkfzr_yj").html(json.data.yxkfzr_yj);
+
+							if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.yxkfzr_empid == $.cookie(CookieUser)) {
+								$("#reject").show();
+							}
+
+							if (json.data.zxld_zt == 0) {//
+								if($.getUrlParam("state") == 0) {
+									$("#zxldyj_value").removeClass("am-hide");
+
+									$("#yxkjbr_empid_text").removeClass("am-hide");
+									$("#yxkjbr_empid_help").removeClass("am-hide");
+								}
+							} else {
+								$("#zxldyj").html(json.data.zxldyj);//
+
+								if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.zxld_empid == $.cookie(CookieUser)) {
+									$("#reject").show();
+								}
+
+								if (json.data.yxkjbr_zt == 0) {
+									if($.getUrlParam("state") == 0) {
+										$("#yspjyj_empid_text").removeClass("am-hide");
+										$("#yspjyj_empid_help").removeClass("am-hide");
+									}
+								} else {
+									$("#yxkjbr").html(json.data.ysr_date);//
+
+									if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.yxkjbr_empid == $.cookie(CookieUser)) {
+										$("#reject").show();
+									}
+
+									if (json.data.ys_zt == 0) {
+										if($.getUrlParam("state") == 0) {
+											$("#yspjyj_value").removeClass("am-hide");
+
+											$("#wxgcs_value").removeClass("am-hide");
+											$("#xldw_value").removeClass("am-hide");
+											$("#wxnr_value").removeClass("am-hide");
+										}
+									} else {
+										$("#yspjyj").html(json.data.yspjyj);//
+
+										$("#wxgcs").html(json.data.wxgcs);
+										$("#xldw").html(json.data.xldw);
+										$("#wxnr").html(json.data.wxnr);
+
+
+										if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.ysr == $.cookie(CookieUser)) {
+											$("#reject").show();
+										}
+									}
+								}
+							}
+						}
+					}
+
+					$("#sxrq").html(json.data.sxrq);
+					$("#wcrq").html(json.data.wcrq);
+					$("#bz").html(json.data.bz);
+
+					object = json.data;
+				}
+			},
+			error: function() {
+
+			}
+		});
+
+		$("#yxkfzr_yj_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=yxkfzr_yj_empid";
+		});
+
+		$("#zxldyj_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=zxldyj_empid";
+		});
+
+		$("#yxkjbr_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=yxkjbr_empid";
+		});
+
+		$("#yspjyj_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=yspjyj_empid";
+		});
+
+		$("#audit").click(function() {
+			if(typeof(object) == "undefined") {
+				$("#my-alert-message").html("还没有加载完成, 请耐心等待!");
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			//
+			if(object.syksfzr_zt == 0) {
+				var message = "";
+
+				object.syksfzryj = $("#syksfzryj_value").val();
+				if(object.syksfzryj == "") {
+					message += "请填写使用科室负责人意见!<br/>";
+				}
+
+				object.yxkfzr_empid = $("#yxkfzr_yj_empid_value").html();
+				if(object.yxkfzr_empid == "") {
+					message += "请选择药械科负责人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep1();
+
+				return;
+			}
+
+			if (object.yxkfzr_zt == 0) {
+				var message = "";
+
+				object.yxkfzr_yj = $("#yxkfzr_yj_value").val();
+				if(object.yxkfzr_yj == "") {
+					message += "请填写药械科负责人意见!<br/>";
+				}
+
+				object.zxld_empid = $("#zxldyj_empid_value").html();
+				if(object.zxld_empid == "") {
+					message += "请选择中心领导审批人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep2();
+
+				return;
+			}
+
+			if (object.zxld_zt == 0) {
+				var message = "";
+
+				object.zxldyj = $("#zxldyj_value").val();
+				if(object.zxldyj == "") {
+					message += "请填写中心领导审批意见!<br/>";
+				}
+
+				object.yxkjbr_empid = $("#yxkjbr_empid_value").html();
+				if(object.yxkjbr_empid == "") {
+					message += "请选择药械科经办人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep3();
+
+				return;
+			}
+
+			if (object.yxkjbr_zt == 0) {
+				var message = "";
+
+				object.ysr = $("#yspjyj_empid_value").html();
+				if(object.ysr == "") {
+					message += "请选使用科室验收评价人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep4();
+
+				return;
+			}
+
+			if (object.ys_zt == 0) {
+				var message = "";
+
+				object.wxgcs = $("#wxgcs_value").val();
+				if(object.wxgcs == "") {
+					message += "请填写维修工程师!<br/>";
+				}
+
+				object.xldw = $("#xldw_value").val();
+				if(object.xldw == "") {
+					message += "请填写修理单位!<br/>";
+				}
+
+				object.wxnr = $("#wxnr_value").val();
+				if(object.wxnr == "") {
+					message += "请填写维修内容!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep5();
+
+				return;
+			}
+
+		});
+
+		function updateStep1() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step1",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id,
+					syksfzryj: object.syksfzryj,
+					yxkfzr_empid: object.yxkfzr_empid
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep2() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step2",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id,
+					yxkfzr_yj: object.yxkfzr_yj,
+					zxld_empid: object.zxld_empid
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep3() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step3",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id,
+					zxldyj: object.zxldyj,
+					yxkjbr_empid: object.yxkjbr_empid
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep4() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step4",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id,
+					ysr: object.ysr
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep5() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step5",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id,
+					yspjyj: object.yspjyj,
+					xldw: object.xldw,
+					wxgcs: object.wxgcs,
+					wxnr: object.wxnr,
+					yspjyj: object.yspjyj
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#reject").click(function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "undostep" + $.getUrlParam("step"),
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					yqsbwxd_id: object.yqsbwxd_id
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		});
+
+	});
+</script>

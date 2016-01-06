@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container">
+			<div>
+				<ul class="am-list m-widget-list">
+				</ul>
+			</div>
+			<div id="pull-up" style="text-align:center; height: 45px;">
+				<span>点击加载更多</span>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    $(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "内部通知"
+		});
+
+		var page = 1;
+		var limit = 20;
+
+		$("#pull-up").hide();
+
+		var load = function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					hrm_employee_id: $.cookie(CookieUser),
+					hrm_employee_depid: $.cookie(CookieDepId),
+					page: page,
+					limit: limit
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						if(page == 1) {
+							$("#pull-up").show();
+						}
+
+						if(json.data.length != limit) {
+							$("#pull-up").hide();
+						}
+
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							html += "<li><a href='detail.html?id=" + json.data[i].oa_noti_id + "'><div style='width: 50px; float: left;'>" + ((i + 1) + limit * (page - 1)) + ".</div><div class='title' style='float: left; white-space:normal;'>" + json.data[i].oa_noti_name + "<br/>" + json.data[i].oa_noti_time + "</div></a></li>"
+						}
+						$(".am-list").append(html);
+
+						$(".title").css("width", ($(window).width() - 80) + "px");
+
+						page++;
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#pull-up").click(function() {
+			load();
+		});
+
+		load();
+	});
+</script>

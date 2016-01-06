@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container">
+    		<div class="am-header-fixed" style="background-color: #ffffff; height: 90px;">
+				<ul class="am-list m-widget-list">
+					<li style="padding-top: 5px; padding-left: 5px;">
+						开始时间:
+						<input type="text" id='ycsj_begindate_value' class="am-hide2" data-am-datepicker readonly /><span class="am-margin-left"></span>
+						<p>
+						<span style="margin-left: 75px;"></span>
+						<input type="radio" name="apply_begindate_radio" value="00:00:00" checked> 上午<span class="am-margin-left"></span>
+						<input type="radio" name="apply_begindate_radio" value="12:00:00"> 下午
+						<p>
+						结束时间:
+						<input type="text" id='ycsj_enddate_value' class="am-hide2" data-am-datepicker readonly /><span class="am-margin-left"></span>
+						<p>
+						<span style="margin-left: 75px;"></span>
+						<input type="radio" name="apply_enddate_radio" value="12:00:00" checked> 上午<span class="am-margin-left"></span>
+						<input type="radio" name="apply_enddate_radio" value="23:59:59"> 下午
+					</li>
+				</ul>
+			</div>
+			<div style="padding-top: 173px;">
+				<ul class="am-list m-widget-list employee-list">
+				</ul>
+				<div id="pull-up" style="text-align:center; height: 45px;">
+					<span>点击加载更多</span>
+				</div>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-bd" id="my-alert-message">
+
+			    	</div>
+			    	<div class="am-modal-footer">
+			    		<span class="am-modal-btn">确定</span>
+			    	</div>
+			  	</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "车辆拾取"
+		});
+
+		var page = 1;
+		var limit = 30;
+
+		$("#pull-up").hide();
+
+		var apply_begindate = $.getUrlParam("begin");
+		var apply_enddate = $.getUrlParam("end");
+
+		$("#ycsj_begindate_value").val(apply_begindate.substring(0, 10));
+		$("#ycsj_enddate_value").val(apply_enddate.substring(0, 10));
+
+		$("input[name='apply_begindate_radio'][value='" + apply_begindate.substring(11, 19) + "']").attr("checked",true);
+		$("input[name='apply_enddate_radio'][value='" + apply_enddate.substring(11, 19) + "']").attr("checked",true);
+
+		$('#ycsj_begindate_value').datepicker().on('changeDate.datepicker.amui', function(event) {
+			load();
+	    });
+
+		$('#ycsj_enddate_value').datepicker().on('changeDate.datepicker.amui', function(event) {
+			load();
+	    });
+
+		$("input[name='apply_begindate_radio']").change(function() {
+			load();
+		});
+
+		$("input[name='apply_enddate_radio']").change(function() {
+			load();
+		});
+
+		var load = function() {
+			var message = "";
+
+			var apply_begindate = $("#ycsj_begindate_value").val();
+			if(apply_begindate == "") {
+				message += "请填写申请用车开始时间!<br/>";
+			}
+
+			var apply_enddate = $("#ycsj_enddate_value").val();
+			if(apply_enddate == "") {
+				message += "请填写申请用车结束时间!<br/>";
+			}
+
+			var begintime = $("input[name='apply_begindate_radio']:checked").val();
+			var endtime = $("input[name='apply_enddate_radio']:checked").val();
+			var begin = new Date((apply_begindate + " " + begintime).replace("-", "/").replace("-", "/"));
+			var end = new Date((apply_enddate + " " + endtime).replace("-", "/").replace("-", "/"));
+			if(begin >= end) {
+				message += "开始时间应该小于结束时间!<br/>";
+			}
+
+			if(message != "") {
+				$("#my-alert-message").html(message);
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					apply_begindate: apply_begindate + " " + begintime,
+					apply_enddate: apply_enddate + " " + endtime,
+					page: page,
+					limit: limit
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						if(page == 1) {
+							$("#pull-up").show();
+						}
+
+						if(json.data.length != limit) {
+							$("#pull-up").hide();
+						}
+
+						$(".employee-list").html("");
+
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							//html += "<li><a value='" + json.data[i].oa_car_id + "' text='" + json.data[i].oa_car_cards + "'><span>" + ((i + 1) + limit * (page - 1)) + "、" + json.data[i].oa_car_cards + json.data[i].state + "</span></a></li>"
+							html += "<li class='am-cf'><a value='" + json.data[i].oa_car_id + "' text='" + json.data[i].oa_car_cards + "' state='" + json.data[i].state + "'><span class='am-fl'>" + ((i + 1) + limit * (page - 1)) + "、" + json.data[i].oa_car_cards + "</span><span class='am-fr'>";
+							if(json.data[i].state == 0) {
+							html += "<font color='green'>可用</font>";
+							} else {
+								html += "<font color='red'>在用</font>";
+							}
+							html += "</span></a></li>";
+						}
+						$(".employee-list").append(html);
+
+						//page++;
+
+						$(".employee-list li a").click(function() {
+							if($(this).attr("state") == "0") {
+								var apply_begindate = $("#ycsj_begindate_value").val();
+								var apply_enddate = $("#ycsj_enddate_value").val();
+								var begintime = $("input[name='apply_begindate_radio']:checked").val();
+								var endtime = $("input[name='apply_enddate_radio']:checked").val();
+
+								Jockey.send(EventBackCallback + "-" + urlString, {
+									name: $.getUrlParam("name"),
+									value: $(this).attr("value"),
+									text: $(this).attr("text"),
+									begin: apply_begindate + " " + begintime,
+									end: apply_enddate + " " + endtime,
+								});
+							}
+						});
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#pull-up").click(function() {
+			load();
+		});
+
+		load();
+	});
+</script>

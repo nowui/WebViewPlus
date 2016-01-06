@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="am-padding">
+			<!--<p>
+    		<div id="title">业务招待申请单</div>
+			<p>-->
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">申购科室</h3></div>
+				<div class="am-panel-bd" id="sqks">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">招待时间</h3></div>
+				<div class="am-panel-bd" id="zdrq">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">招待事由</h3></div>
+				<div class="am-panel-bd" id="zdsy">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">所属项目</h3></div>
+				<div class="am-panel-bd" id="ssxm">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">项目明细</h3></div>
+				<div class="am-panel-bd" id="xmmx">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">人数/桌数</h3></div>
+				<div class="am-panel-bd" id="rszc">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">酒店</h3></div>
+				<div class="am-panel-bd" id="jd">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">预算</h3></div>
+				<div class="am-panel-bd" id="ys">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">餐劵</h3></div>
+				<div class="am-panel-bd" id="cq">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">酒</h3></div>
+				<div class="am-panel-bd" id="j">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">茶叶</h3></div>
+				<div class="am-panel-bd" id="cy">
+
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">科室负责人签字</h3></div>
+				<div class="am-panel-bd" id="ksfzr_yj">
+					<textarea rows="3" id='ksfzr_yj_value' class="am-hide" style="width: 100%;">同意</textarea>
+				</div>
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">中心主任签字</h3></div>
+				<div class="am-panel-bd" id="zxzr_yj">
+					<textarea rows="3" id='zxzr_yj_value' class="am-hide" style="width: 100%;">同意</textarea>
+					<span id="zxzr_yj_empid_value" class='am-hide'></span>
+					<span id="zxzr_yj_empid_text" class='am-margin-right am-hide'></span>
+					<button id="zxzr_yj_empid_help" class="am-btn am-btn-primary am-hide">人员拾取</button>
+				</div>
+			</div>
+			<p>
+
+			<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-margin-bottom-sm">
+	    		<button id="audit" class="am-btn am-btn-primary am-margin-top am-center" style="width:96%;">审核</button>
+	    		<button id="reject" class="am-btn am-btn-danger am-margin-top am-center" style="width:96%;">取消审核</button>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-bd" id="my-alert-message">
+
+			    	</div>
+			    	<div class="am-modal-footer">
+			    		<span class="am-modal-btn">确定</span>
+			    	</div>
+			  	</div>
+			</div>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "业务招待申请单"
+		});
+
+		Jockey.on(EventBackCallback + "-" + urlString, function(payload) {
+			$("#" + payload.name + "_value").html(payload.value);
+			$("#" + payload.name + "_text").html(payload.text);
+		});
+
+		if($.getUrlParam("state") == 0) {
+			$("#audit").show();
+		} else {
+			$("#audit").hide();
+		}
+		$("#reject").hide();
+
+		var object;
+
+		$("#my-loading").modal();
+
+		$.ajax({
+			type: "POST",
+			url: "find",
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				zdsqd_id: $.getUrlParam("id")
+			}),
+			dataType: "json",
+			success: function(json) {
+				$("#my-loading").modal("close");
+
+				if(json.result) {
+					$("#sqks").html(json.data.hrm_dep_name);
+					$("#zdrq").html(json.data.zdrq);
+					$("#zdsy").html(json.data.zdsy);
+					$("#ssxm").html(json.data.ssxm);
+					$("#xmmx").html(json.data.xmmx);
+					$("#rszc").html(json.data.rszc);
+					$("#jd").html(json.data.jd);
+					$("#ys").html(json.data.ys);
+					$("#cq").html(json.data.cq1 + "<br/>" + json.data.cq2);
+					$("#j").html(json.data.j1 + "<br/>" + json.data.j2);
+					$("#cy").html(json.data.cy1 + "<br/>" + json.data.cy2);
+					if (json.data.ksfzr_zt == 0) {
+						if($.getUrlParam("state") == 0) {
+							$("#ksfzr_yj_value").removeClass("am-hide");
+
+							$("#zxzr_yj_empid_text").removeClass("am-hide");
+							$("#zxzr_yj_empid_help").removeClass("am-hide");
+
+							if(json.data.zxzr_empid == "") {
+								$("#zxzr_yj_empid_value").html("002");
+								$("#zxzr_yj_empid_text").html("马尔健");
+							}
+						}
+					} else {
+						$("#ksfzr_yj").html(json.data.ksfzr_yj);
+
+						if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.ksfzr_empid == $.cookie(CookieUser)) {
+							$("#reject").show();
+						}
+
+						if (json.data.zxzr_zt == 0) {//管理部门审核
+							if($.getUrlParam("state") == 0) {
+								$("#zxzr_yj_value").removeClass("am-hide");
+							}
+						} else {
+							$("#zxzr_yj").html(json.data.zxzr_yj);
+
+							if($.getUrlParam("step") == json.data.step && $.getUrlParam("state") == 1 && json.data.glbmyj_empid == $.cookie(CookieUser)) {
+								$("#reject").show();
+							}
+						}
+					}
+
+					object = json.data;
+				}
+			},
+			error: function() {
+
+			}
+		});
+
+		$("#zxzr_yj_empid_help").click(function() {
+			window.location.href = "../employee/index.html?name=zxzr_yj_empid";
+		});
+
+		$("#audit").click(function() {
+			if(typeof(object) == "undefined") {
+				$("#my-alert-message").html("还没有加载完成, 请耐心等待!");
+				$("#my-alert").modal();
+				setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+				return;
+			}
+
+			//
+			if(object.ksfzr_zt == 0) {
+				var message = "";
+
+				object.ksfzr_yj = $("#ksfzr_yj_value").val();
+				if(object.ksfzr_yj == "") {
+					message += "请填写科室负责人意见!<br/>";
+				}
+
+				object.zxzr_empid = $("#zxzr_yj_empid_value").html();
+				if(object.zxzr_empid == "") {
+					message += "请选择中心主任审核人!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep1();
+
+				return;
+			}
+
+			if (object.zxzr_zt == 0) {
+				var message = "";
+
+				object.zxzr_yj = $("#zxzr_yj_value").val();
+				if(object.zxzr_yj == "") {
+					message += "请填写中心主任意见!<br/>";
+				}
+
+				if(message != "") {
+					$("#my-alert-message").html(message);
+					$("#my-alert").modal();
+					setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+					return;
+				}
+
+				updateStep2();
+
+				return;
+			}
+
+		});
+
+		function updateStep1() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step1",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					zdsqd_id: object.zdsqd_id,
+					ksfzr_yj: object.ksfzr_yj,
+					zxzr_empid: object.zxzr_empid
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		function updateStep2() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "step2",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					zdsqd_id: object.zdsqd_id,
+					zxzr_yj: object.zxzr_yj
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+
+		$("#reject").click(function() {
+			$("#my-loading").modal();
+
+			$.ajax({
+				type: "POST",
+				url: "undostep" + $.getUrlParam("step"),
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					zdsqd_id: object.zdsqd_id
+				}),
+				dataType: "json",
+				success: function(json) {
+					$("#my-loading").modal("close");
+
+					if(json.result) {
+						$("#my-alert-message").html("审核成功, 返回列表!");
+						$("#my-alert").modal();
+						setTimeout(function(){$("#my-alert").modal("close");}, HideDelay);
+
+						setTimeout(function(){Jockey.send(EventBackCallback + "-" + urlString, {});}, HideDelay + 100);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		});
+
+	});
+</script>

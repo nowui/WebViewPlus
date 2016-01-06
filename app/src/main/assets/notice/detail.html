@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>合肥市疾病预防控制中心</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="../css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/amazeui.min.js"></script>
+		<script type="text/javascript" src="../js/jockey.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+    </head>
+    <body>
+    	<div id="container" class="padding-5">
+			<div id="title">
+
+			</div>
+			<p>
+			<div id="detail">
+
+			</div>
+			<p>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd"><h3 class="am-panel-title">附件</h3></div>
+				<div class="am-panel-bd" id="attachment">
+
+				</div>
+			</div>
+			<p>
+
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-loading">
+				<div class="am-modal-dialog">
+			    	<div class="am-modal-hd"></div>
+			    	<div class="am-modal-bd">
+			     		<span class="am-icon-spinner am-icon-spin"></span>
+			    	</div>
+			  	</div>
+			</div>
+    	<div>
+    </body>
+</html>
+
+<script type="text/javascript">
+	$(function() {
+		Jockey.send(EventTitle + "-" + urlString, {
+			text: "内部通知"
+		});
+
+		$("#my-loading").modal();
+
+		$.ajax({
+			type: "POST",
+			url: "find",
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				oa_noti_id: $.getUrlParam("id")
+			}),
+			dataType: "json",
+			success: function(json) {
+				if(json.result) {
+					$("#my-loading").modal("close");
+
+					$("#title").html(json.data.oa_noti_name);
+					$("#detail").html(json.data.oa_noti_text);
+
+					if(json.data.oa_noti_acce != "") {
+						var array = json.data.oa_noti_acce.split(",");
+						getAttachment(array);
+					}
+				}
+			},
+			error: function() {
+
+			}
+		});
+
+		function getAttachment(ids) {
+			var url = document.location.href;
+			url = url.substring(0, url.indexOf("/notice/detail"));
+
+			$.ajax({
+				type: "POST",
+				url: "../attachment/json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					ids: ids
+				}),
+				dataType: "json",
+				success: function(json) {
+					if(json.result) {
+						var html = "";
+						for(var i = 0; i < json.data.length; i++) {
+							var object = json.data[i];
+							//html += "<a href='../attachment/download?path=" + object.attachment_filename + "'>" + object.attachment_name + "</a><br />";
+							//html += "<a href='http://api.idocv.com/view/url?url=" + url + "/attachment/download?path=" + object.attachment_filename + "&name=" + object.attachment_name + "'>" + object.attachment_name + "</a><br />";
+							html += "<a href='../download.html?path=" + object.attachment_filename + "&name=" + encodeURIComponent(encodeURIComponent(object.attachment_name)) + "'>" + object.attachment_name + "</a><br />";
+						}
+						$("#attachment").html(html);
+					}
+				},
+				error: function() {
+
+				}
+			});
+		}
+	});
+</script>
