@@ -62,9 +62,8 @@
 
 <script type="text/javascript">
 	$(function() {
-		var selectArray = [];
-		var dataArray = [];
-		var isMultiple = false;
+		selectArray = [];
+		isMultiple = false;
 
 		if($.getUrlParam("type") == "multiple") {
 			isMultiple = true;
@@ -102,29 +101,18 @@
 		});
 
 		Jockey.on(EventNormalCallback + "-" + urlString, function(payload) {
-			var list = [];
-
-			for(var i = 0; i < dataArray.length; i++) {
-				if(selectArray[i]) {
-					list.push({
-						value: dataArray[i].hrm_employee_id,
-						text: dataArray[i].hrm_employee_name
-					});
-				}
-			}
-
-			if(list.length > 0) {
+			if(selectArray.length > 0) {
 				if(isMultiple) {
-				Jockey.send(EventBackCallback + "-" + urlString, {
-					name: $.getUrlParam("name"),
-					list: list
-				});
+					Jockey.send(EventBackCallback + "-" + urlString, {
+						name: $.getUrlParam("name"),
+						list: selectArray
+					});
 				} else {
-				Jockey.send(EventBackCallback + "-" + urlString, {
-					name: $.getUrlParam("name"),
-					value: list[0].value,
-					text: list[0].text
-				});
+					Jockey.send(EventBackCallback + "-" + urlString, {
+						name: $.getUrlParam("name"),
+						value: selectArray[0].value,
+						text: selectArray[0].text
+					});
 				}
 			} else {
 				$("#my-alert-message").html("请选择!");
@@ -142,7 +130,7 @@
 		});
 
 		var page = 1;
-		var limit = 30;
+		var limit = 999999;
 
 		$("#pull-up").hide();
 
@@ -171,17 +159,19 @@
 							$("#pull-up").hide();
 						}
 
-						selectArray = [];
-						dataArray = [];
-
 						var html = "";
 						for(var i = 0; i < json.data.length; i++) {
-							selectArray.push(false);
-							dataArray.push(json.data[i]);
-
-							html += "<li><a index='" + i + "' value='" + json.data[i].hrm_employee_id + "' text='" + json.data[i].hrm_employee_name + "'><span>" + ((i + 1) + limit * (page - 1)) + "、" + json.data[i].hrm_employee_name + "</span><span id='list_check_" + i + "' style='float: right;'></span></a></li>"
+							html += "<li><a index='" + i + "' value='" + json.data[i].hrm_employee_id + "' text='" + json.data[i].hrm_employee_name + "'><span>" + ((i + 1) + limit * (page - 1)) + "、" + json.data[i].hrm_employee_name + "</span><span id='list_check_" + json.data[i].hrm_employee_id + "' style='float: right;'></span></a></li>"
 						}
 						$(".employee-list").append(html);
+
+						for(var i = 0; i < selectArray.length; i++) {
+							for(var k = 0; k < json.data.length; k++) {
+								if(selectArray[i].value == json.data[k].hrm_employee_id) {
+									$("#list_check_" + selectArray[i].value).addClass("am-icon-check-circle");
+								}
+							}
+						}
 
 						page++;
 
@@ -193,16 +183,43 @@
 							});*/
 
 							if(isMultiple) {
-								selectArray[$(this).attr("index")] = ! selectArray[$(this).attr("index")];
-							} else {
+								var select = -1;
+
 								for(var i = 0; i < selectArray.length; i++) {
-									selectArray[i] = false;
+									if(selectArray[i].value == $(this).attr("value")) {
+										console.log(selectArray[i].value + "+" + $(this).attr("value"));
+										select = i;
+										break;
+									}
 								}
 
-								selectArray[$(this).attr("index")] = true;
-							}
+								if(select > -1) {
+									$("#list_check_" + selectArray[select].value).removeClass("am-icon-check-circle");
 
-							checkDataArray();
+									selectArray.splice(select, 1);
+								} else {
+
+									$("#list_check_" + $(this).attr("value")).addClass("am-icon-check-circle");
+
+									selectArray.push({
+										value: $(this).attr("value"),
+										text: $(this).attr("text")
+									});
+								}
+							} else {
+								for(var i = 0; i < selectArray.length; i++) {
+									$("#list_check_" + selectArray[i].value).removeClass("am-icon-check-circle");
+								}
+
+								selectArray = [];
+
+								$("#list_check_" + $(this).attr("value")).addClass("am-icon-check-circle");
+
+								selectArray.push({
+									value: $(this).attr("value"),
+									text: $(this).attr("text")
+								});
+							}
 						});
 					}
 				},
@@ -210,16 +227,6 @@
 
 				}
 			});
-		}
-
-		var checkDataArray = function() {
-			for(var i = 0; i < selectArray.length; i++) {
-				if(selectArray[i]) {
-					$("#list_check_" + i).addClass("am-icon-check-circle");
-				} else {
-					$("#list_check_" + i).removeClass("am-icon-check-circle");
-				}
-			}
 		}
 
 		var loadDepartment = function() {
